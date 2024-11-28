@@ -1,0 +1,41 @@
+name: coligen2
+channels:
+  - defaults
+dependencies:
+  # Specify Python 3.6
+  - python=3.6
+  - _libgcc_mutex=0.1=main
+  - _openmp_mutex=5.1=1_gnu
+  - absl-py=1.4.0=pyhd8ed1ab_0
+  - aiohttp=3.8.1=py36h0a891b7_1
+  - altair=4.2.0
+  - bzip2=1.0.8=h7b6447c_0
+  - ca-certificates=2022.12.7=ha878542_0
+  - certifi=2022.12.7=pyhd8ed1ab_0
+  - cffi=1.15.0=py36h3931269_0
+  - libstdcxx-ng=11.2.0=h1234567_1
+  - mkl=2021.4.0=h06a4308_640
+  - numpy=1.19.5=py36h14f4228_3
+  - pandas=1.1.5
+  - scipy=1.5.4
+  - scikit-learn=0.24.2
+  - matplotlib=3.3.4
+  - zlib=1.2.13=h5eee18b_0
+
+  # Additional packages managed by pip
+  - pip:
+    - addict==2.4.0
+    - beautifulsoup4==4.9.3
+    - dash==2.0.0
+    - dash-core-components==2.0.0
+    - dash-html-components==2.0.0
+    - dash-table==5.0.0
+    - flask==1.1.2
+    - jupyter==1.0.0
+    - notebook==6.4.12
+    - pytz==2021.1
+    - requests==2.25.1
+    - torch==1.8.1
+    - torchvision==0.9.1
+    - tensorflow==2.5.0
+    - opencv-python==4.5.2.52
