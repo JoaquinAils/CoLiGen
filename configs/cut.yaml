@@ -1,0 +1,107 @@
+model:  # Model-specific configurations
+  name: "cut"  # Name of the model, e.g., CUTModel
+  nce_layers: "0,4,8,12,16"  # Layers to extract features for NCE loss
+  lambda_NCE: 1.0  # Weight for NCE pixel loss
+  lambda_NCE_feat: -1  # Weight for NCE feature loss
+  lambda_GAN: 1.0  # Weight for GAN loss
+  nce_idt: False  # Use identity mapping in NCE loss
+  flip_equivariance: False  # Apply flipping for equivariance testing
+  modality_A:  # List of input modalities for domain A
+    - "inv"
+    - "reflectance"
+  modality_B:  # List of input modalities for domain B
+    - "inv"
+    - "reflectance"
+  modality_cond:  # Conditional input modalities (if applicable)
+    - "rgb"
+    - "label"
+  out_ch:  # Output modalities
+    - "inv"
+    - "reflectance"
+  netG: "resnet_9blocks"  # Generator network architecture
+  normG: "instance"  # Normalization type for generator
+  ngf: 64  # Number of generator filters
+  no_antialias: False  # Disable anti-aliasing in generator
+  no_antialias_up: False  # Disable anti-aliasing upsampling in generator
+  no_dropout: True  # Disable dropout in generator
+  init_type: "xavier"  # Weight initialization type
+  init_gain: 0.02  # Initialization gain
+  netF: "mlp_sample"  # Feature extractor type
+  netF_nc: 256
+  netD: "basic"  # Discriminator network architecture
+  n_layers_D: 3  # Number of layers in discriminator
+  normD: "instance"  # Normalization type for discriminator
+  ndf: 64  # Number of discriminator filters
+  gan_mode: "lsgan"  # GAN loss type
+  num_patches: 256  # Number of patches for NCE loss sampling 
+  nce_includes_all_negatives_from_minibatch: False
+  nce_T: 0.07
+  
+training:  # Training-specific configurations
+  name: "coligen"
+  batch_size: 1  # Training batch size
+  lr: 0.0002  # Learning rate
+  beta1: 0.5  # Adam optimizer beta1
+  beta2: 0.999  # Adam optimizer beta2
+  gpu_ids:  # List of GPUs to use
+    - 0
+  epochs: 100  # Number of training epochs
+  display_freq: 100  # Frequency of displaying intermediate results
+  save_epoch_freq: 5  # Frequency of saving checkpoints
+  print_freq: 50  # Frequency of printing logs
+  n_epochs: 4
+  lr_policy: 'linear'
+  continue_train: False
+  verbose: True
+  seed: 42  # Random seed for reproducibility
+  lr_decay_iters: 50
+  checkpoints_dir: './checkpoints'
+
+
+dataset:  # Dataset-specific configurations
+  dataset_A:  # Domain A dataset
+    name: "carla"
+    data_dir: "./data/domain_A"
+    modality:
+      - "depth"
+      - "reflectance"
+      - "rgb"
+      - "label"
+    img_prop:  # Image properties
+      width: 2048
+      height: 64
+      finesize: -1
+
+    fill_in_label: False
+    
+  dataset_B:  # Domain B dataset
+    name: "kitti"
+    data_dir: "./data/domain_B"
+    modality:
+      - "depth"
+      - "reflectance"
+      - "rgb"
+      - "label"
+    img_prop:
+      width: 2048
+      height: 64
+      finesize: -1
+    fill_in_label: False
+  
+  norm_label: <bool>  # Normalize labels (if applicable)
+
+visualization:  # Visualization configurations
+  save_dir: "./results"  # Directory for saving generated images and logs
+  display_ncols: 4  # Number of images to display in a row
+  save_latest_freq: 1000  # Frequency of saving the latest results
+  save_by_iter: <bool>  # Save results by iteration
+
+logging:  # Logging configurations
+  log_dir: "./logs"  # Directory for logs
+  log_freq: 100  # Logging frequency
+
+seed: 42  # Random seed for reproducibility
+val_split_ratio: 0.2
+max_dataset_size: -1
+n_workers: 2
+name: "cut"  # Name of the model, e.g., CUTModel
